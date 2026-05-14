@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VARLINK EOOD | Computer Systems Design & Mobile IT Solutions</title>
+    <meta name="description" content="Professional IT consulting, computer systems design, and enterprise mobile applications based in Varna, Bulgaria.">
+    <style>
+        /* DESIGN SYSTEM: CYBER ENTERPRISE IT */
+        :root {
+            --bg-dark: #070B19;       /* Deep Cyber Black */
+            --bg-panel: #111827;      /* Dark Gray Panel */
+            --primary: #00F0FF;       /* Tech Cyan */
+            --primary-dim: rgba(0, 240, 255, 0.15);
+            --secondary: #3B82F6;     /* Deep Blue */
+            --text-main: #E5E7EB;     /* Light Gray for readability */
+            --text-muted: #9CA3AF;    /* Muted text */
+            --white: #FFFFFF;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* 1. NAVIGATION */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(7, 11, 25, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* 2. HERO SECTION */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            position: relative;
+            background: radial-gradient(circle at 80% 20%, var(--primary-dim) 0%, transparent 40%);
+        }
+
+        /* CSS Grid Background for Tech Vibe */
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hero-tag {
+            font-family: var(--font-mono);
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        header h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--white);
+            max-width: 900px;
+        }
+
+        header p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 32px;
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            font-family: var(--font-mono);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dim);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+        }
+
+        /* 3. ABOUT US SECTION */
+        .section {
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .section-header .line {
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-highlight {
+            background: var(--bg-panel);
+            padding: 40px;
+            border-left: 4px solid var(--secondary);
+            border-radius: 4px;
+        }
+
+        /* 4. SERVICES SECTION */
+        .bg-alt {
+            background-color: #0b1121;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--bg-panel);
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .service-icon {
+            font-family: var(--font-mono);
+            color: var(--secondary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            color: var(--white);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        /* 5. APP PROMO (CRITICAL FOR GOOGLE PLAY CONSOLE) */
+        .app-section {
+            background: linear-gradient(135deg, var(--bg-panel) 0%, #0a1020 100%);
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+            text-align: center;
+        }
+
+        .app-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .app-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .app-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .tech-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        /* 6. CONTACT & CORPORATE INFO */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .corp-info-box {
+            background: var(--bg-panel);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .corp-info-box h3 {
+            color: var(--white);
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .info-row {
+            margin-bottom: 20px;
+        }
+
+        .info-label {
+            font-family: var(--font-mono);
+            color: var(--primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: var(--white);
+            font-family: var(--font-sans);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* 7. FOOTER (LEGAL & PRIVACY) */
+        footer {
+            background: #03050a;
+            padding: 60px 10% 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 900px) {
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            header h1 { font-size: 2.5rem; }
+            .section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">VARLINK<span>_</span></div>
+        <div class="nav-links">
+            <a href="#about">Company</a>
+            <a href="#services">IT Services</a>
+            <a href="#mobile-apps">Mobile Ecosystem</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="hero-tag">// ENTERPRISE IT & SYSTEMS DESIGN</div>
+        <h1>Architecting Intelligent Computing Ecosystems.</h1>
+        <p>Varlink EOOD provides advanced computer facilities management, technical consulting, and mobile infrastructure solutions for modern businesses.</p>
+        <a href="#mobile-apps" class="btn-primary">Explore Our Solutions</a>
+    </header>
+
+    <section id="about" class="section bg-alt">
+        <div class="section-header">
+            <h2>Corporate Identity</h2>
+            <div class="line"></div>
+        </div>
+        <div class="about-grid">
+            <div class="about-text">
+                <p><strong>VARLINK EOOD</strong> is a premier technology firm registered in Varna, Bulgaria. We specialize in the "Computer Systems Design and Related Services" sector, delivering robust, scalable IT infrastructure for global clients.</p>
+                <p>Under the leadership of our Principal, Marin Gromov, we bridge the gap between complex hardware facilities and intuitive software interfaces. Our team consists of elite software engineers, system architects, and technical consultants dedicated to optimizing enterprise workflows.</p>
+            </div>
+            <div class="about-highlight">
+                <h3 style="color: var(--white); margin-bottom: 15px;">Professional, Scientific & Technical Services</h3>
+                <p style="color: var(--text-muted);">We don't just write code; we engineer solutions based on rigorous scientific and technical methodologies. From backend database architecture to frontend mobile deployment, quality is our baseline.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="section-header">
+            <h2>Core Competencies</h2>
+            <div class="line"></div>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">{ }</div>
+                <h3>Computer Systems Design</h3>
+                <p>End-to-end design of corporate IT systems. We evaluate your operational needs and build custom software/hardware architectures that ensure maximum uptime and security.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">&lt;/&gt;</div>
+                <h3>Facilities Management</h3>
+                <p>Comprehensive computer facilities management. We handle server maintenance, cloud infrastructure scaling, and continuous technical monitoring for uninterrupted business processes.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">[ ]</div>
+                <h3>Technical Consulting</h3>
+                <p>Expert advisory services for IT modernization. We guide enterprises through digital transformation, ensuring compliance with EU data protection and technical standards.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="mobile-apps" class="section app-section">
+        <div class="app-content">
+            <div class="hero-tag" style="justify-content: center; display: flex;">// GOOGLE PLAY PUBLISHER</div>
+            <h2>Enterprise Mobile Applications</h2>
+            <p>To provide our clients with secure, real-time access to their managed IT systems, <strong>VARLINK EOOD develops and maintains proprietary mobile applications published on the Google Play Store.</strong></p>
+            <p>Our mobile ecosystem—including the <em>Varlink IT Facility Manager</em> app—allows corporate administrators to monitor server health, approve security protocols, and communicate with our technical support team directly from their Android devices.</p>
+            
+            <div class="tech-stack">
+                <span class="tech-badge">Android Native</span>
+                <span class="tech-badge">Kotlin</span>
+                <span class="tech-badge">Cloud API Integration</span>
+                <span class="tech-badge">Secure Auth</span>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <a href="#contact" class="btn-primary" style="background: var(--primary-dim);">Developer Support & Policy</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section bg-alt">
+        <div class="section-header">
+            <h2>Contact & Legal</h2>
+            <div class="line"></div>
+        </div>
+        <div class="contact-grid">
+            <div>
+                <form onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <input type="text" placeholder="Full Name / Company" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Corporate Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Subject (e.g., App Support, IT Consulting)">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; text-align: center; cursor: pointer;">Send Secure Message</button>
+                </form>
+            </div>
+
+            <div class="corp-info-box">
+                <h3>Entity Verification</h3>
+                
+                <div class="info-row">
+                    <div class="info-label">Company Name</div>
+                    <div class="info-value"><strong>VARLINK EOOD</strong></div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Key Principal</div>
+                    <div class="info-value">MARIN GROMOV</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-label">Industry Sector</div>
+                    <div class="info-value">Computer Systems Design and Related Services;<br>Computer facilities management</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Registered Address</div>
+                    <div class="info-value">
+                        109 Knyaz Boris I blvd. Odesos Distr., Fl. 14, Apt. 55<br>
+                        Varna, Varna, 9000<br>
+                        Bulgaria
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Official Contact</div>
+                    <div class="info-value" style="color: var(--primary);">info@varlink.info</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">VARLINK<span>_</span></div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Architecting the future of enterprise IT systems and secure mobile infrastructure from Varna, Bulgaria.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>App Developer Support</h4>
+                <ul>
+                    <li><a href="#">Report an App Bug</a></li>
+                    <li><a href="#">Request App Data Deletion</a></li>
+                    <li><a href="#">Google Play Developer Policy</a></li>
+                    <li><a href="#">IT Support Portal</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Legal & Compliance</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy (GDPR Compliant)</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Legal Disclosure</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VARLINK EOOD. All rights reserved. Professional, Scientific, and Technical Services Group.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
